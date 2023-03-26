@@ -2,17 +2,21 @@ import sys
 import json
 
 start_list =[]
-int_list = '0123456789'
+end_list =[]
+
 value1 = sys.argv[1].strip(" ")
-print(type(value1))
-value1 = value1.split("]")
-value1[0] = value1[0]+"]"
 
+value1 = value1.replace("[","")
+value1 = value1.replace("]","")
+value1=list(map(int, value1.split(",")))
 
-value1[1] = int(value1[1].strip(','))
-for eachitem in value1[0]:
-    if eachitem in int_list:
-        start_list.append(int(eachitem))
+start_list = value1[0:-1]
+sum_num = value1[-1]
 
-print(start_list, value1[1])
+print("startlist",start_list)
+print("sum_num",sum_num)
+for i in start_list:
+    if (sum_num-i)in start_list and not((sum_num-i, i) in end_list) and not(sum_num-i == i):
+        end_list.append((i, sum_num-i))
 
+print(end_list)
